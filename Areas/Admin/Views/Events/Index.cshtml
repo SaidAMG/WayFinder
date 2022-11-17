@@ -1,0 +1,128 @@
+@model IEnumerable<Event>
+@{
+    ViewBag.Title = "Events";
+    ViewData["EventsActive"] = "active";
+}
+
+<h2>Events</h2>
+
+<div id="modalPlaceholder"></div>
+
+<div class="card card-body border-0 shadow table-responsive">
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ID)</th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(itemModel => item.ID)</td>
+                <td>@Html.DisplayFor(itemModel => item.Name)</td>
+                <td>
+                    <button type="button" style="background: transparent; border: none;" onclick="addCompanyModal('@item.ID')">
+                        <i class="material-icons text-black">add</i>
+                    </button>
+                    <button type="button" style="background: transparent; border: none;" onclick="viewEvent('@item.ID')">
+                        <i class="material-icons text-info">info</i>
+                    </button>
+                    <button type="button" style="background: transparent; border: none;" onclick="editEvent('@item.ID')">
+                        <i class="material-icons text-warning">edit</i>
+                    </button>
+                    <button type="button" style="background: transparent; border: none;" onclick="deleteEvent('@item.ID', '@item.Name')">
+                        <i class="material-icons text-danger">delete</i>
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-2">
+    <button class="btn btn-primary" onclick="createEventModal()"><i style="vertical-align: -6px;" class="material-icons">add</i> Create Event</button>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+    
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+        
+        function viewEvent(eventId) {
+            $.ajax({
+                url: '@Url.Action("Details", "Events")/' + eventId,
+                type: 'POST',
+                success: function (response) {
+                    $('#modalPlaceholder').html(response);
+                    $('#viewEventModal').modal('show');
+                }
+            });
+        }
+        
+        function editEvent(eventId) {
+            $.ajax({
+                url: '@Url.Action("Edit", "Events")/' + eventId,
+                type: 'POST',
+                success: function (response) {
+                    $('#modalPlaceholder').html(response);
+                    $('#editEventModal').modal('show');
+                }
+            });
+        }
+        
+        function createEventModal() {
+            $.ajax({
+                url: '@Url.Action("Create", "Events")/',
+                success: function (response) {
+                    $('#modalPlaceholder').html(response);
+                    $('#createEventModal').modal('show');
+                }
+            });
+        }
+        
+        function addCompanyModal(eventId) {
+            $.ajax({
+                url: '@Url.Action("OpenAddCompanyToEventModal", "Events")/' + eventId,
+                success: function (response) {
+                    $('#modalPlaceholder').html(response);
+                    $('#eventAddCompanyModal').modal('show');
+                }
+            });
+        }
+        
+        function deleteEvent(eventId, name) {
+            const location = window.location;
+    
+            swalWithBootstrapButtons.fire({
+                icon: 'warning',
+                text: 'Are you sure you want to delete event ' + name + '?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send post request to backend to actually delete the user.
+                    $.post('@Url.Action("Delete", "Events")', { id: eventId }, function() {
+                        swalWithBootstrapButtons.fire(
+                                          'Deleted!',
+                                          'Event ' + name + ' has been deleted.',
+                                          'success'
+                                      ).then(_ => location.reload());
+                    });
+                }
+            });
+        }
+    </script>
+}

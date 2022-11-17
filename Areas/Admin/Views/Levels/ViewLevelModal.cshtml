@@ -1,0 +1,43 @@
+@model Level
+
+<!-- Modal -->
+<div class="modal fade" id="viewLevelModal" tabindex="-1" aria-labelledby="viewLevelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="viewLevelModalLabel">Viewing Level</h1>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.ID)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.ID)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.LevelNumber)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.LevelNumber)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Locations)</strong>
+                    @if (Model.Locations != null)
+                    {
+                        @foreach (var location in Model.Locations.Take(5))
+                        {
+                            <p>@location.Name</p>
+                        }
+                    }
+                    else
+                    {
+                        <p>None</p>
+                    }
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-warning">Edit</button>*@
+                @*<button type="button" class="btn btn-danger" data-mdb-dismiss="modal" onclick="onDeleteUser(1, 'PietJan')">Delete</button>*@
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

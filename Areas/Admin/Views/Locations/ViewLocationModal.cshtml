@@ -1,0 +1,41 @@
+@model Location
+
+<!-- Modal -->
+<div class="modal fade" id="viewLocationModal" tabindex="-1" aria-labelledby="viewLocationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="viewLocationModalLabel">Viewing Level</h1>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.ID)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.ID)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Name)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.Name)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Description)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.Description)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.X)/@Html.DisplayNameFor(itemModel => Model.Y)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.X)/@Html.DisplayFor(itemModel => Model.Y)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Level)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.Level.LevelNumber)</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-warning">Edit</button>*@
+                @*<button type="button" class="btn btn-danger" data-mdb-dismiss="modal" onclick="onDeleteUser(1, 'PietJan')">Delete</button>*@
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

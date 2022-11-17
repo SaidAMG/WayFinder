@@ -1,0 +1,44 @@
+@model Resident
+
+<!-- Modal -->
+<div class="modal fade" id="viewResidentModal" tabindex="-1" aria-labelledby="viewResidentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="viewResidentModalLabel">Viewing Resident</h1>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.FirstName)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.FirstName)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.LastName)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.LastName)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.UserName)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.UserName)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Email)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.Email)</p>
+                </div>
+                @if (Model.Company != null)
+                {
+                    <div>
+                        <strong>@Html.DisplayNameFor(itemModel => Model.Company)</strong>
+                        <p>@Html.DisplayFor(itemModel => Model.Company.Name)</p>
+                    </div>
+                }
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-warning">Edit</button>*@
+                @*<button type="button" class="btn btn-danger" data-mdb-dismiss="modal" onclick="onDeleteUser(1, 'PietJan')">Delete</button>*@
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

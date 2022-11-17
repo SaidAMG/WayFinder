@@ -1,0 +1,29 @@
+@model GuestRegisterForEventModel
+
+<!-- Modal -->
+<div class="modal fade" id="registerForEventModal" tabindex="-1" aria-labelledby="registerForEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="registerForEventModalLabel">Register as Guest</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-action="RegisterGuest">
+                <div class="modal-body">
+                    <div>
+                        <label asp-for="FullName">Full Name</label>
+                        <input asp-for="FullName" class="form-control" placeholder="Full Name"/>
+                    </div>
+                    <div>
+                        <label asp-for="EventId">Event</label>
+                        <select asp-for="EventId" class="form-control" asp-items="@Model.EventsSelectListItems"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

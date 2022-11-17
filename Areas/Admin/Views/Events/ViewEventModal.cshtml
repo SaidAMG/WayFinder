@@ -1,0 +1,63 @@
+@model Event
+
+<!-- Modal -->
+<div class="modal fade" id="viewEventModal" tabindex="-1" aria-labelledby="viewEventModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="viewEventModalLabel">Viewing Event</h1>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.ID)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.ID)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Name)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.Name)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Description)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.Description)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Companies)</strong>
+                    @if (Model.Companies.Count > 0)
+                    {
+                        @foreach (var company in Model.Companies.Take(5))
+                        {
+                            // Margin-bottom removes the spacing that the element adds in mdb
+                            <p style="margin-bottom: 0;">@company.Name</p>
+                        }
+                    }
+                    else
+                    {
+                        <p>None</p>
+                    }
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Guests)</strong>
+                    @if (Model.Guests.Count > 0)
+                    {
+                        @foreach (var resident in Model.Guests)
+                        {
+                            // Margin-bottom removes the spacing that the element adds in mdb
+                            <p style="margin-bottom: 0;">@resident.FullName</p>
+                        }
+                    }
+                    else
+                    {
+                        <p>None</p>
+                    }
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-warning">Edit</button>*@
+                @*<button type="button" class="btn btn-danger" data-mdb-dismiss="modal" onclick="onDeleteUser(1, 'PietJan')">Delete</button>*@
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

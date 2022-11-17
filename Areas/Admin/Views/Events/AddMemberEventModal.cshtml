@@ -1,0 +1,26 @@
+@model EventAddCompanyModel
+
+<!-- Modal -->
+<div class="modal fade" id="eventAddCompanyModal" tabindex="-1" aria-labelledby="eventAddCompanyLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="eventAddCompanyLabel">Add Company</h1>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-action="AddCompanyToEvent">
+                <input type="hidden" asp-for="EventId"/>
+                <div class="modal-body">
+                    <div>
+                        <label asp-for="CompanyId">Company</label>
+                        <select asp-for="CompanyId" class="form-control" asp-items="@Model.CompaniesSelectListItems"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

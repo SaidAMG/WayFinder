@@ -1,0 +1,41 @@
+@model LocationCreateModel
+
+<!-- Modal -->
+<div class="modal fade" id="createLocationModal" tabindex="-1" aria-labelledby="createLocationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createLocationModalLabel">Create Location</h1>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-action="Create">
+                <div class="modal-body">
+                    <div>
+                        <label asp-for="Name">Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Name"/>
+                    </div>
+                    <div>
+                        <label asp-for="Description">Description</label>
+                        <input asp-for="Description" class="form-control" placeholder="Description"/>
+                    </div>
+                    <div>
+                        <label asp-for="X">X</label>
+                        <input asp-for="X" class="form-control" placeholder="X"/>
+                    </div>
+                    <div>
+                        <label asp-for="Y">Y</label>
+                        <input asp-for="Y" class="form-control" placeholder="Y"/>
+                    </div>
+                    <div>
+                        <label asp-for="LevelID">Level</label>
+                        <select asp-for="LevelID" class="form-control" asp-items="@Model.LevelsSelectListItems"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

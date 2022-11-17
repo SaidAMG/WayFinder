@@ -1,0 +1,28 @@
+﻿@model IEnumerable<LocationSearchLog>
+@{
+    ViewBag.Title = "LocationSearchLog";
+    ViewData["LocationSearchLogActive"] = "active";
+}
+
+<div class="card card-body border-0 shadow table-responsive">
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.EndLocationId)</th>
+            <th>@Html.DisplayNameFor(model => model.EndLocationName)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(itemModel => item.Id)</td>
+                <td>@Html.DisplayFor(itemModel => item.EndLocationId)</td>
+                <td>@Html.DisplayFor(itemModel => item.EndLocationName)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

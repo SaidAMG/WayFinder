@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"/>
+    <!-- Google Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- MBD -->
+    <link rel="stylesheet" href="~/css/admin/mdb.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.2/dist/sweetalert2.all.min.js"></script>
+
+    <style>
+        .card .card-body .tile-right {
+            text-align: right;
+            line-height: 1.618;
+        }
+        
+        .card .card-body .tile-right .tile-number {
+            font-size: 2rem;
+            font-weight: 400;
+        }
+        
+        .card .card-body .tile-left {
+            position: absolute;
+        }
+        
+        .card .card-body .tile-left .batch-icon {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<!--Main Navigation-->
+<div class="container my-5">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WayFinder</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["DashboardActive"]" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["ResidentsActive"]" asp-area="Admin" asp-controller="Residents" asp-action="Index">Residents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["LocationsActive"]" asp-area="Admin" asp-controller="Locations" asp-action="Index">Locations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["EventsActive"]" asp-area="Admin" asp-controller="Events" asp-action="Index">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["CompaniesActive"]" asp-area="Admin" asp-controller="Companies" asp-action="Index">Companies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["LevelsActive"]" asp-area="Admin" asp-controller="Levels" asp-action="Index">Levels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["GuestsActive"]" asp-area="Admin" asp-controller="Guests" asp-action="Index">Guests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["LocationSearchLogActive"]" asp-area="Admin" asp-controller="LocationSearchLog" asp-action="Index">LocationSearchLog</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <a class="link-secondary me-3" asp-area="Admin" asp-controller="Account" asp-action="Logout">
+                    <i class="material-icons" style="vertical-align: -6px; color: crimson;">logout</i> <span style="color: black">Sign out</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <br/>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/admin/mdb.min.js"></script>
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

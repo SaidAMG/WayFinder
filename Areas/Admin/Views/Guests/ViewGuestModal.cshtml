@@ -1,0 +1,44 @@
+@model Guest
+
+<!-- Modal -->
+<div class="modal fade" id="viewGuestModal" tabindex="-1" aria-labelledby="viewGuestModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="viewGuestModalLabel">Viewing Guest</h1>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.ID)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.ID)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.FullName)</strong>
+                    <p>@Html.DisplayFor(itemModel => Model.FullName)</p>
+                </div>
+                <div>
+                    <strong>@Html.DisplayNameFor(itemModel => Model.Events)</strong>
+                    @if (Model.Events.Count > 0)
+                    {
+                        @foreach (var event1 in Model.Events.Take(5))
+                        {
+                            // Margin-bottom removes the spacing that the element adds in mdb
+                            <p style="margin-bottom: 0;">@event1.Name</p>
+                        }
+                    }
+                    else
+                    {
+                        <p>None</p>
+                    }
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-warning">Edit</button>*@
+                @*<button type="button" class="btn btn-danger" data-mdb-dismiss="modal" onclick="onDeleteUser(1, 'PietJan')">Delete</button>*@
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

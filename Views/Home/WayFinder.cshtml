@@ -1,0 +1,30 @@
+﻿@using WayFinder.WayFinderFunctions
+@model WayFinderViewModel
+@{
+    ViewData["Title"] = "WayFinder";
+}
+
+<form asp-action="WayFinder">
+    <div class="row">
+        <div class="col-md-6">
+            <label asp-for="StartLocationInput">@Html.DisplayNameFor(itemModel => Model.StartLocationInput)</label>
+            <select asp-for="StartLocationInput" class="form-control" asp-items="@Model.LocationsSelectListItems"></select>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="EndLocationInput">@Html.DisplayNameFor(itemModel => Model.EndLocationInput)</label>
+            <select asp-for="EndLocationInput" class="form-control" asp-items="@Model.LocationsSelectListItems"></select>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <button type="submit" class="btn btn-primary">Get Route</button>
+    </div>
+</form>
+
+<div style="white-space:pre-line;">
+    @if (Model.StartLocationId != null && Model.EndLocationId != null)
+    {
+        @Functions.Navigation(new[] { Model.StartLocation.X, Model.StartLocation.Y }, new[] { Model.EndLocation.X, Model.EndLocation.Y })
+    }
+</div>

@@ -1,0 +1,29 @@
+@model CompanyCreateModel
+
+<!-- Modal -->
+<div class="modal fade" id="createCompanyModal" tabindex="-1" aria-labelledby="createCompanyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="createCompanyModalLabel">Create Company</h1>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" asp-action="Create">
+                <div class="modal-body">
+                    <div>
+                        <label asp-for="Name">Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Name"/>
+                    </div>
+                    <div>
+                        <label asp-for="LocationID">LocationID</label>
+                        <select asp-for="LocationID" class="form-control" asp-items="@Model.LocationsSelectListItems"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

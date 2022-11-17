@@ -1,0 +1,121 @@
+@model IEnumerable<Resident>
+@{
+    ViewBag.Title = "Residents";
+    ViewData["ResidentsActive"] = "active";
+}
+@*@(await Html.PartialAsync("CreateResidentModal"))*@
+@*@(await Html.PartialAsync("ViewResidentModal", new CreateResidentModel("PietJan", "Pietjan@gmail.com", "Kleinepielemuis1")))*@
+@*@(await Html.PartialAsync("EditResidentModal", new EditResidentModel("efbfa7fc-f987-4917-aa7b-dc13528ead93", "PietJan", "Pietjan@gmail.com", "Kleinepielemuis1")))*@
+
+<h2>Residents</h2>
+
+<div id="modalPlaceholder"></div>
+
+<div class="card card-body border-0 shadow table-responsive">
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.UserName)</th>
+            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(itemModel => item.Id)</td>
+                <td>@Html.DisplayFor(itemModel => item.UserName)</td>
+                <td>@Html.DisplayFor(itemModel => item.Email)</td>
+                <td>
+                    <button type="button" style="background: transparent; border: none;" onclick="viewResident('@item.Id')">
+                        <i class="material-icons text-info">info</i>
+                    </button>
+                    <button type="button" style="background: transparent; border: none;" onclick="editResident('@item.Id')">
+                        <i class="material-icons text-warning">edit</i>
+                    </button>
+                    <button type="button" style="background: transparent; border: none;" onclick="deleteResident('@item.Id', '@item.UserName')">
+                        <i class="material-icons text-danger">delete</i>
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-2">
+    <button class="btn btn-primary" onclick="createResident()"><i style="vertical-align: -6px;" class="material-icons">add</i> Create Resident</button>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    });
+    
+    function viewResident(residentId) {
+        $.ajax({
+            url: '@Url.Action("Details", "Residents")/' + residentId,
+            type: 'POST',
+            success: function (response) {
+                $('#modalPlaceholder').html(response);
+                $('#viewResidentModal').modal('show');
+            }
+        });
+    }
+    
+    function editResident(residentId) {
+        $.ajax({
+            url: '@Url.Action("Edit", "Residents")/' + residentId,
+            type: 'POST',
+            success: function (response) {
+                $('#modalPlaceholder').html(response);
+                $('#editResidentModal').modal('show');
+            }
+        });
+    }
+    
+    function createResident() {
+        $.ajax({
+            url: '@Url.Action("Create", "Residents")',
+            //type: 'POST',
+            success: function (response) {
+                $('#modalPlaceholder').html(response);
+                $('#createResidentModal').modal('show');
+            }
+        });
+    }
+    
+    function deleteResident(residentId, username) {
+        const location = window.location;
+
+        swalWithBootstrapButtons.fire({
+            icon: 'warning',
+            text: 'Are you sure you want to delete resident ' + username + '?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Send post request to backend to actually delete the user.
+                $.post('@Url.Action("Delete", "Residents")', { id: residentId }, function() {
+                    swalWithBootstrapButtons.fire(
+                                      'Deleted!',
+                                      'Resident ' + username + ' has been deleted.',
+                                      'success'
+                                  ).then(_ => location.reload());
+                });
+            }
+        });
+    }
+</script>
+}

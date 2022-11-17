@@ -1,0 +1,87 @@
+@model IEnumerable<Guest>
+@{
+    ViewBag.Title = "Guests";
+    ViewData["GuestsActive"] = "active";
+}
+
+<h2>Guests</h2>
+
+<div id="modalPlaceholder"></div>
+
+<div class="card card-body border-0 shadow table-responsive">
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ID)</th>
+            <th>@Html.DisplayNameFor(model => model.FullName)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(itemModel => item.ID)</td>
+                <td>@Html.DisplayFor(itemModel => item.FullName)</td>
+                <td>
+                    <button type="button" style="background: transparent; border: none;" onclick="viewGuest('@item.ID')">
+                        <i class="material-icons text-info">info</i>
+                    </button>
+                    <button type="button" style="background: transparent; border: none;" onclick="deleteGuest('@item.ID', '@item.FullName')">
+                        <i class="material-icons text-danger">delete</i>
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+    
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
+        
+        function viewGuest(guestId) {
+            $.ajax({
+                url: '@Url.Action("Details", "Guests")/' + guestId,
+                type: 'POST',
+                success: function (response) {
+                    $('#modalPlaceholder').html(response);
+                    $('#viewGuestModal').modal('show');
+                }
+            });
+        }
+        
+        function deleteGuest(guestId, name) {
+            const location = window.location;
+    
+            swalWithBootstrapButtons.fire({
+                icon: 'warning',
+                text: 'Are you sure you want to delete guest ' + name + '?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Send post request to backend to actually delete the user.
+                    $.post('@Url.Action("Delete", "Guests")', { id: guestId }, function() {
+                        swalWithBootstrapButtons.fire(
+                                          'Deleted!',
+                                          'Guest ' + name + ' has been deleted.',
+                                          'success'
+                                      ).then(_ => location.reload());
+                    });
+                }
+            });
+        }
+    </script>
+}
